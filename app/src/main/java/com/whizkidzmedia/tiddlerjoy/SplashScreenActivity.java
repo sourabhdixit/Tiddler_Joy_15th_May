@@ -40,8 +40,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         // making it full screen
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // set our MainGamePanel as the View
-        setContentView(new GameView(this));
-        getSupportActionBar().hide();
+//        setContentView(new GameView(this));
+//        getSupportActionBar().hide();
         //ll = (LinearLayout)findViewById(R.id.center_layout);
         //ll.addView(new GameView(this));
     }
