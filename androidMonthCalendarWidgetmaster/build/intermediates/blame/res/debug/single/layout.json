@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "D:\\Sourabh\\Android\\Samples\\TiddlerJoy\\androidMonthCalendarWidgetmaster\\build\\intermediates\\res\\merged\\debug\\layout\\cell_day.xml",
+        "source": "D:\\Sourabh\\Android\\Samples\\TiddlerJoy\\androidMonthCalendarWidgetmaster\\src\\main\\res\\layout\\cell_day.xml"
+    },
+    {
+        "merged": "D:\\Sourabh\\Android\\Samples\\TiddlerJoy\\androidMonthCalendarWidgetmaster\\build\\intermediates\\res\\merged\\debug\\layout\\row_header.xml",
+        "source": "D:\\Sourabh\\Android\\Samples\\TiddlerJoy\\androidMonthCalendarWidgetmaster\\src\\main\\res\\layout\\row_header.xml"
+    },
+    {
+        "merged": "D:\\Sourabh\\Android\\Samples\\TiddlerJoy\\androidMonthCalendarWidgetmaster\\build\\intermediates\\res\\merged\\debug\\layout\\cell_day_this_month.xml",
+        "source": "D:\\Sourabh\\Android\\Samples\\TiddlerJoy\\androidMonthCalendarWidgetmaster\\src\\main\\res\\layout\\cell_day_this_month.xml"
+    },
+    {
+        "merged": "D:\\Sourabh\\Android\\Samples\\TiddlerJoy\\androidMonthCalendarWidgetmaster\\build\\intermediates\\res\\merged\\debug\\layout\\cell_today.xml",
+        "source": "D:\\Sourabh\\Android\\Samples\\TiddlerJoy\\androidMonthCalendarWidgetmaster\\src\\main\\res\\layout\\cell_today.xml"
+    },
+    {
+        "merged": "D:\\Sourabh\\Android\\Samples\\TiddlerJoy\\androidMonthCalendarWidgetmaster\\build\\intermediates\\res\\merged\\debug\\layout\\widget.xml",
+        "source": "D:\\Sourabh\\Android\\Samples\\TiddlerJoy\\androidMonthCalendarWidgetmaster\\src\\main\\res\\layout\\widget.xml"
+    },
+    {
+        "merged": "D:\\Sourabh\\Android\\Samples\\TiddlerJoy\\androidMonthCalendarWidgetmaster\\build\\intermediates\\res\\merged\\debug\\layout\\row_week.xml",
+        "source": "D:\\Sourabh\\Android\\Samples\\TiddlerJoy\\androidMonthCalendarWidgetmaster\\src\\main\\res\\layout\\row_week.xml"
+    },
+    {
+        "merged": "D:\\Sourabh\\Android\\Samples\\TiddlerJoy\\androidMonthCalendarWidgetmaster\\build\\intermediates\\res\\merged\\debug\\layout\\cell_header.xml",
+        "source": "D:\\Sourabh\\Android\\Samples\\TiddlerJoy\\androidMonthCalendarWidgetmaster\\src\\main\\res\\layout\\cell_header.xml"
+    },
+    {
+        "merged": "D:\\Sourabh\\Android\\Samples\\TiddlerJoy\\androidMonthCalendarWidgetmaster\\build\\intermediates\\res\\merged\\debug\\layout\\loading.xml",
+        "source": "D:\\Sourabh\\Android\\Samples\\TiddlerJoy\\androidMonthCalendarWidgetmaster\\src\\main\\res\\layout\\loading.xml"
+    }
+]

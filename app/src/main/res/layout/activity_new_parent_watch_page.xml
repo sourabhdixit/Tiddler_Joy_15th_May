@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/summary_report"
+    tools:context="com.whizkidzmedia.tiddlerjoy.ParentInterface.NewParentWatchPage">
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
+        ></include>
+
+    <android.support.v4.widget.DrawerLayout
+        android:layout_below="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/drawer_layout">
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="720">
+
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:layout_weight="80">-->
+
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="SUMMARY REPORT"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:textColor="#ff0000"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="20sp"/>-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/info_btn"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:padding="5dp"-->
+                <!--android:layout_width="40dp"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:src="@drawable/info_button"-->
+                <!--/>-->
+
+            <!--<ImageView-->
+                <!--android:layout_toLeftOf="@+id/info_btn"-->
+                <!--android:padding="5dp"-->
+                <!--android:layout_width="40dp"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:src="@drawable/q_mark_button"-->
+                <!--/>-->
+
+        <!--</RelativeLayout>-->
+        <LinearLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="600"
+            android:weightSum="600"
+            android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="120">
+
+            <ImageView
+                android:id="@+id/child_name_bar"
+                android:layout_marginLeft="3dp"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitStart"
+                android:src="@drawable/child_name_bar"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:weightSum="480">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/child_image"
+                android:layout_marginLeft="5dp"
+                android:padding="15dp"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="110"
+                android:scaleType="fitXY"
+                app:riv_corner_radius="20dip"
+                app:riv_border_width="0dip"
+                app:riv_border_color="#333333"
+                app:riv_mutate_background="false"
+                android:src="@drawable/female"
+                app:riv_oval="true" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    />
+                <TextView
+                    android:id="@+id/child_name"
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="110"
+                    android:gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textStyle="italic"
+                    android:textSize="15sp"
+                    android:text="Child Name"
+                    android:textColor="#fff"
+                     />
+
+                <ImageView
+                    android:id="@+id/child_selector_img"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:scaleType="fitXY"
+                    android:layout_weight="20"
+                    android:visibility="gone"
+                    android:src="@drawable/child_name_arrow_button"
+                    android:gravity="center_vertical"
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="255"/>
+            </LinearLayout>
+
+
+
+
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="300"
+            >
+            <ImageView
+                android:id="@+id/yellow_blob"
+                android:layout_marginLeft="85dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/yblob"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".35"/>
+
+                <TextView
+                    android:padding="40dp"
+                    android:id="@+id/sun_iv"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="0dp"
+                    android:layout_weight=".65"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:text="Your child is \nhaving a \ngreat time !! "
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:background="@drawable/sun_button"
+                    />
+
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center|bottom"
+            android:elevation="4dp"
+            android:layout_weight="190">
+
+
+            <ImageView
+                android:layout_marginRight="20dp"
+                android:id="@+id/about_me_growth_iv"
+                android:layout_alignParentBottom="true"
+                android:scaleType="fitXY"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/plant_5"
+                />
+
+            <ImageView
+                android:id="@+id/early_maths_growth_iv"
+                android:layout_alignParentBottom="true"
+                android:scaleType="fitXY"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/about_me_growth_iv"
+                android:src="@drawable/plant_4"
+                />
+            <ImageView
+                android:id="@+id/creativity_growth_iv"
+                android:layout_alignParentBottom="true"
+                android:scaleType="fitXY"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/early_maths_growth_iv"
+                android:src="@drawable/plant_1"
+                />
+            <ImageView
+                android:id="@+id/beautiful_world_growth_iv"
+                android:layout_alignParentBottom="true"
+                android:scaleType="fitXY"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/creativity_growth_iv"
+                android:src="@drawable/plant_2"
+                />
+            <ImageView
+                android:id="@+id/communication_growth_iv"
+                android:layout_alignParentBottom="true"
+                android:scaleType="fitXY"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/beautiful_world_growth_iv"
+                android:src="@drawable/plant_3"
+                />
+            <ImageView
+                android:id="@+id/blue_blob"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/bblob"/>
+
+        </RelativeLayout>
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:elevation="5dp"
+            android:layout_weight="120">
+
+            <ImageView
+                android:id="@+id/about_me_iv"
+                android:scaleType="centerCrop"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:src="@drawable/aboutme_button"
+                />
+            <ImageView
+                android:id="@+id/early_maths_iv"
+                android:layout_toRightOf="@+id/about_me_iv"
+                android:scaleType="centerCrop"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:src="@drawable/earlymaths_button"
+                />
+            <ImageView
+                android:id="@+id/creativity_iv"
+                android:layout_toRightOf="@+id/early_maths_iv"
+                android:scaleType="centerCrop"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:src="@drawable/creativity_button"
+                />
+            <ImageView
+                android:id="@+id/beautiful_world_iv"
+                android:layout_toRightOf="@+id/creativity_iv"
+                android:scaleType="centerCrop"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:src="@drawable/beautifulworld_button"
+                />
+            <ImageView
+                android:id="@+id/communication_iv"
+                android:layout_toRightOf="@+id/beautiful_world_iv"
+                android:scaleType="centerCrop"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:src="@drawable/communication_button"
+                />
+
+        </RelativeLayout>
+    </LinearLayout>
+        </FrameLayout>
+        <ListView
+            android:id="@+id/drawer"
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
+            android:background="#fff"
+            android:layout_gravity="start">
+        </ListView>
+    </android.support.v4.widget.DrawerLayout>
+</RelativeLayout>

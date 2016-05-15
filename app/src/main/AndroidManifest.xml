@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.whizkidzmedia.tiddlerjoy">
+
+    <uses-sdk tools:overrideLibrary="com.github.glomadrian.loadingballs" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <application
+        android:name=".Application.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".SplashScreenActivity" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="7c3aa3452229d95e56de2778ca2facf62f70b543" />
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="TiddlerJoy.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.whizkidzmedia.tiddlerjoy.DataModels.UserProfile,com.whizkidzmedia.tiddlerjoy.DataModels.ChildProfile,com.whizkidzmedia.tiddlerjoy.DataModels.ChildVideo" />
+
+        <activity
+            android:name=".SpriteScreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_sprite_screen"
+            android:theme="@style/FullscreenTheme" />
+        <activity android:name=".MyGameActivity" />
+        <activity
+            android:name=".ParentInterface.ParentSignupActivity"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.android.camera.CropImage" />
+        <activity
+            android:name=".ParentInterface.AddChildProfileActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".ParentInterface.RetrieveChildProfilesActivity" />
+        <activity
+            android:name=".ChildInterface.ChildLoginActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ExoPlayer.ExoPlayerActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ChildInterface.ChildWatchActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ParentInterface.ParentWatchPageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".YouTube.YouTubePlayerActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".Animations.FullScreenActivity" />
+        <activity
+            android:name=".ChildInterface.ChildVideoHistoryActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".ParentInterface.ParentVideoHistoryActivity" />
+        <activity android:name=".ParentInterface.NewParentWatchPage"
+            android:theme="@style/FullscreenActionBarStyle"></activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,51 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:17:1-40:12
+	package
+		ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:18:5-54
+		INJECTED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml
+		INJECTED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml
+	android:versionName
+		ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:20:5-30
+		INJECTED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml
+		INJECTED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml
+	android:versionCode
+		ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:19:5-28
+		INJECTED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml
+		INJECTED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:17:11-69
+uses-sdk
+ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:22:5-74
+	android:targetSdkVersion
+		ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:22:42-71
+		INJECTED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml
+		INJECTED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:22:15-41
+		INJECTED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml
+		INJECTED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml
+application
+ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:24:5-38:19
+	android:label
+		ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:25:9-41
+	android:allowBackup
+		ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:27:9-35
+	android:icon
+		ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:26:9-45
+receiver#com.example.android.monthcalendarwidget.MonthCalendarWidget
+ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:29:9-36:20
+	android:name
+		ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:29:19-54
+intent-filter#android.appwidget.action.APPWIDGET_UPDATE
+ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:30:13-32:29
+action#android.appwidget.action.APPWIDGET_UPDATE
+ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:31:17-84
+	android:name
+		ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:31:25-81
+meta-data#android.appwidget.provider
+ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:33:13-35:55
+	android:resource
+		ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:35:17-52
+	android:name
+		ADDED from D:\Sourabh\Android\Samples\TiddlerJoy\androidMonthCalendarWidgetmaster\src\main\AndroidManifest.xml:34:17-58

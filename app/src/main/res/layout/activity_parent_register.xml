@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lib="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+   >
+
+    <LinearLayout
+        android:visibility="visible"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".4"
+        android:background="#c1c2c3"
+        android:orientation="vertical"
+        android:weightSum="1"/>
+
+    <LinearLayout
+        android:visibility="visible"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".15"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <TextView
+            android:gravity="top|center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold|italic"
+            android:layout_marginLeft="14dp"
+            android:textColor="#AA510051"
+            android:text="Register with us and  "/>
+        <TextView
+            android:layout_marginTop="2dp"
+            android:gravity="top|center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:layout_marginLeft="25dp"
+            android:textColor="#AA510051"
+            android:text="- Perosnalize the App experience to your child's age\n- View your child's progress matrix\n- Set parental controls  "/>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".45"
+        android:background="#fff"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:weightSum="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp"
+            android:background="#fff"
+            android:layout_weight=".20">
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#AA510051"
+                android:textStyle="bold|italic"
+                android:text="Register with us by providing your Name and other details"/>
+            </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp"
+            android:background="#fff"
+            android:layout_weight=".15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="#000"
+                android:text="Name * "/>
+            <EditText
+                android:id="@+id/parent_registration_name"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:maxLength="40"
+                android:paddingLeft="5dp"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:textColor="#000"
+                android:textColorHint="#c1c2c3" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#fff"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_weight=".15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#000"
+                android:text="Mobile * "/>
+            <EditText
+                android:id="@+id/parent_registration_mobile"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:maxLength="40"
+                android:paddingLeft="10dp"
+                android:ems="10"
+                android:inputType="number"
+                android:textColor="#000"
+                android:textColorHint="#c1c2c3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:background="#fff"
+            android:layout_marginLeft="15dp"
+            android:layout_weight=".15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_marginRight="10dp"
+                android:textColor="#000"
+                android:text="Email * "/>
+            <EditText
+                android:id="@+id/parent_registration_email"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:maxLength="40"
+                android:paddingLeft="10dp"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:textColor="#000"
+                android:textColorHint="#c1c2c3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/retrieve_profiles_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:gravity="right|center_vertical"
+            android:background="#fff"
+            android:layout_marginLeft="15dp"
+            android:layout_weight=".15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:layout_marginRight="15dp"
+                android:textColor="#0000ff"
+                android:text="Already Registered ? Retrieve profiles"/>
+            <View
+                android:layout_marginRight="10dp"
+                android:layout_width="230dp"
+                android:layout_height="2dp"
+                android:background="#0000ff"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+
+            android:layout_weight=".15">
+
+            <Button
+                android:id="@+id/parent_register_btn"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#AA510051"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:textColor="#fff"
+                android:text=" Register "/>
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
+    <com.tt.whorlviewlibrary.WhorlView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:visibility="gone"
+        android:id="@+id/whorl2"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="12dp"
+        android:layout_centerInParent="true"
+        app:whorlview_circle_colors="#F14336_#ffffff_#5677fc_#F44336_#4CAF50"
+        app:whorlview_circle_speed="270"
+        app:whorlview_parallax="fast"
+        app:whorlview_strokeWidth="20"
+        app:whorlview_sweepAngle="90">
+    </com.tt.whorlviewlibrary.WhorlView>
+</RelativeLayout>

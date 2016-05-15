@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.whizkidzmedia.tiddlerjoy.ParentInterface.ParentWatchPageActivity"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_sky"
+   >
+
+
+
+
+    <LinearLayout
+        android:id="@+id/child_list_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:weightSum="1">
+
+        <HorizontalScrollView
+            android:id="@+id/child_list_hsv"
+            android:layout_width="0dp"
+            android:layout_weight=".85"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/hsv_parent_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                <!--<ImageView-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginRight="5dp"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:scaleType="centerInside"-->
+                    <!--android:src="@drawable/wheel"/>-->
+                <!--<ImageView-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginRight="10dp"-->
+                    <!--android:padding="15dp"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:scaleType="centerInside"-->
+                    <!--android:src="@drawable/wheel"/>-->
+
+            </LinearLayout>
+        </HorizontalScrollView>
+        <LinearLayout
+            android:layout_margin="5dp"
+            android:id="@+id/child_gift_layout"
+            android:layout_width="0dp"
+            android:layout_weight=".15"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:weightSum="1">
+
+            <ImageView
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/gift_button"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/child_learning_area_cardview"
+        android:layout_width="match_parent"
+        android:visibility="visible"
+        android:layout_below="@+id/child_list_layout"
+        android:layout_height="400dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        card_view:cardElevation="14dp"
+        card_view:cardCornerRadius="0dp">
+
+    <LinearLayout
+        android:id="@+id/child_learning_areas_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="20dp"
+        android:orientation="vertical"
+        android:background="@drawable/train_bg"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:id="@+id/child_sublearning_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".1"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/learning_topic_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ALL ABOUT ME"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:textStyle="italic"
+                    android:textSize="18sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/child_knowledge_map_layout"
+            android:layout_width="match_parent"
+
+            android:orientation="vertical"
+            android:layout_height="0dp"
+            android:layout_weight=".56">
+            <!--<TextView-->
+    <!--android:id="@+id/sub_cat_animals"-->
+    <!--android:layout_width="60dp"-->
+    <!--android:layout_height="60dp"-->
+    <!--android:text="Animals"-->
+    <!--android:gravity="center"-->
+    <!--android:textColor="#000"-->
+    <!--android:background="@drawable/sub_cat_1"/>-->
+    <!--<TextView-->
+        <!--android:id="@+id/sub_cat_birds"-->
+        <!--android:layout_width="60dp"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:text="Birds"-->
+        <!--android:gravity="center"-->
+        <!--android:textColor="#000"-->
+        <!--android:layout_toRightOf="@+id/sub_cat_animals"-->
+        <!--android:background="@drawable/sub_cat_2"/>-->
+    <!--<TextView-->
+        <!--android:id="@+id/sub_cat_insects"-->
+        <!--android:layout_width="60dp"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:text="Insects"-->
+        <!--android:gravity="center"-->
+        <!--android:textColor="#000"-->
+        <!--android:layout_marginLeft="-20dp"-->
+        <!--android:layout_toRightOf="@+id/sub_cat_birds"-->
+        <!--android:background="@drawable/sub_cat_3"/>-->
+            <!--<TextView-->
+                <!--android:id="@+id/sub_cat_birdss"-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="60dp"-->
+                <!--android:text="Birds"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="#000"-->
+                <!--android:layout_below="@+id/sub_cat_insects"-->
+                <!--android:background="@drawable/sub_cat_2"/>-->
+            <!--<TextView-->
+                <!--android:id="@+id/sub_cat_birdsss"-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="60dp"-->
+                <!--android:text="Birds"-->
+                <!--android:visibility="gone"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="#000"-->
+                <!--android:layout_below="@+id/sub_cat_birdss"-->
+                <!--android:background="@drawable/sub_cat_2"/>-->
+
+
+
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/child_topic_train_layout"
+            android:layout_below="@+id/child_knowledge_map_layout"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight=".34"
+            >
+            <!--<ImageView-->
+                <!--android:id="@+id/myself_imgBtn"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginLeft="-15dp"-->
+                <!--android:src="@drawable/myself_selected"/>-->
+            <!--<ImageView-->
+                <!--android:id="@+id/world_around_me_imgBtn"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginLeft="-25dp"-->
+                <!--android:layout_toRightOf="@+id/myself_imgBtn"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:src="@drawable/world_arnd_me"/>-->
+            <!--<ImageView-->
+                <!--android:id="@+id/language_imgBtn"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginLeft="-10dp"-->
+                <!--android:layout_toRightOf="@+id/world_around_me_imgBtn"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:src="@drawable/language"/>-->
+            <!--<ImageView-->
+                <!--android:id="@+id/maths_imgBtn"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginLeft="-15dp"-->
+                <!--android:layout_toRightOf="@+id/language_imgBtn"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:src="@drawable/maths"/>-->
+            <!--<ImageView-->
+                <!--android:id="@+id/creativity_imgBtn"-->
+                <!--android:layout_width="100dp"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:layout_marginLeft="-10dp"-->
+                <!--android:layout_toRightOf="@+id/maths_imgBtn"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:src="@drawable/creativity"/>-->
+        </LinearLayout>
+
+
+    </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:visibility="visible"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/child_learning_area_cardview"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Child's Interest Map"
+            android:textStyle="bold"
+            android:textColor="#A533FF"
+            android:typeface="serif"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:textSize="16sp"
+            android:typeface="serif"
+            android:text="@string/knowledge_map_text"/>
+
+
+
+
+
+    </LinearLayout>
+
+   <!-- <TextView
+    android:id="@+id/sub_cat_animals"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Animals"
+    android:gravity="center"
+    android:textColor="#000"
+    android:background="@drawable/sub_cat_1"/>
+    <TextView
+        android:id="@+id/sub_cat_birds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Birds"
+        android:gravity="center"
+        android:textColor="#000"
+        android:layout_toRightOf="@+id/sub_cat_animals"
+        android:background="@drawable/sub_cat_2"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Insects"
+        android:gravity="center"
+        android:textColor="#000"
+        android:layout_marginLeft="-20dp"
+        android:layout_toRightOf="@+id/sub_cat_birds"
+        android:background="@drawable/sub_cat_3"/>
+        -->
+
+</RelativeLayout>
+</ScrollView>
