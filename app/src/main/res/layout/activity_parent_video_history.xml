@@ -10,6 +10,7 @@
         android:visibility="visible"
         android:id="@+id/tab_selector"
         android:padding="5dp"
+        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:weightSum="1"
@@ -18,35 +19,35 @@
         <ImageView
             android:id="@+id/all_about_me"
             android:layout_width="0dp"
-            android:layout_weight=".2"
+            android:layout_weight=".18"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
             android:src="@drawable/aboutme_button"/>
         <ImageView
             android:id="@+id/early_maths"
             android:layout_width="0dp"
-            android:layout_weight=".2"
+            android:layout_weight=".18"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
             android:src="@drawable/earlymaths_button"/>
         <ImageView
             android:id="@+id/creativity"
             android:layout_width="0dp"
-            android:layout_weight=".2"
+            android:layout_weight=".18"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
             android:src="@drawable/creativity_button"/>
         <ImageView
             android:id="@+id/beautiful_world"
             android:layout_width="0dp"
-            android:layout_weight=".2"
+            android:layout_weight=".18"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
             android:src="@drawable/beautifulworld_button"/>
         <ImageView
             android:id="@+id/communication"
             android:layout_width="0dp"
-            android:layout_weight=".2"
+            android:layout_weight=".18"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
             android:src="@drawable/communication_button"/>

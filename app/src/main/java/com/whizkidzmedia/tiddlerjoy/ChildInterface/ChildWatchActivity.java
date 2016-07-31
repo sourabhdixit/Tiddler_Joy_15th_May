@@ -2,39 +2,44 @@ package com.whizkidzmedia.tiddlerjoy.ChildInterface;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.HorizontalScrollView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.whizkidzmedia.tiddlerjoy.DataModels.ChildProfile;
 import com.whizkidzmedia.tiddlerjoy.DataModels.ChildVideo;
 import com.whizkidzmedia.tiddlerjoy.ExoPlayer.ExoPlayerActivity;
+import com.whizkidzmedia.tiddlerjoy.Networking.FetchVideosByUiTagAsync;
 import com.whizkidzmedia.tiddlerjoy.ParentInterface.NewParentWatchPage;
-import com.whizkidzmedia.tiddlerjoy.ParentInterface.ParentWatchPageActivity;
+import com.whizkidzmedia.tiddlerjoy.ParentInterface.ParentAnalyticsScreen;
 import com.whizkidzmedia.tiddlerjoy.R;
 import com.whizkidzmedia.tiddlerjoy.Utilities.AppConstants;
 import com.whizkidzmedia.tiddlerjoy.Utilities.ConnectionDetector;
 import com.whizkidzmedia.tiddlerjoy.Utilities.DialogBox;
+import com.whizkidzmedia.tiddlerjoy.Utilities.SharedPrefs;
 import com.whizkidzmedia.tiddlerjoy.YouTube.YouTubePlayerActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class ChildWatchActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -46,11 +51,16 @@ public class ChildWatchActivity extends AppCompatActivity implements View.OnClic
     AnimationDrawable[] animationDrawables, characterAnimDrawable ;
     int[] animatedViewIds,bogieViewIds ;
     int videoStartIndex=0;
-    boolean isVideoClicked=false,isThumbnailLoaded=false;
+    boolean isVideoClicked=false ;
+    boolean[] isThumbnailLoaded;
     ImageView playPauseBtn;
     MediaPlayer mpp;
     static final String ELEPHANT_CHAR_ID = "111100";
     final int ElephantIndex=0;
+    ImageView storyUiTagImageView,activityUiTagImageView,rhythmUiTagImageView;
+    public static final String RHYTHM="1",ACTIVITY="3",STORY="2";
+    public static String CURRENT_TAG = RHYTHM;
+    ArrayList<ChildVideo> childVideos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,29 +112,46 @@ public class ChildWatchActivity extends AppCompatActivity implements View.OnClic
 
     private void initVideos() {
 
-        AppConstants.addVideos();
-        ArrayList<ChildVideo> childVideos = AppConstants.CHILDVIDEOS;
-        int k=0;
-        for(int i=videoStartIndex;i<4+videoStartIndex;i++,k++) {
-            ImageView bogieImgView = (ImageView)findViewById(bogieViewIds[k]);
-            if(k==0)
-            bogieImgView.setPadding(screenWidth * 11 / 200, screenHeight * 14 / 100, screenWidth * 4 / 100, screenHeight *4 / 100);
-            else
-            bogieImgView.setPadding(screenWidth * 14 / 200, screenHeight * 14 / 100, screenWidth * 3 / 100, screenHeight *4 / 100);
-            bogieImgView.setScaleType(ImageView.ScaleType.FIT_XY);
-            String imgUrl = "http://img.youtube.com/vi/" + childVideos.get(i).videoUrl + "/0.jpg";
-            Picasso.with(getApplicationContext()).load(imgUrl).placeholder(R.drawable.play_video_icon).into(bogieImgView, new Callback() {
-                @Override
-                public void onSuccess() {
-                    isThumbnailLoaded = true;
-                }
+//        String transactionId = this.getSharedPreferences(SharedPrefs.SHARED_PREFS_NAME,0).getString(SharedPrefs.TRANSACTION_ID,"");
 
-                @Override
-                public void onError() {
-                    isThumbnailLoaded = false;
-                }
-            });
+        CURRENT_TAG = RHYTHM;
+        List childVideo = (ArrayList) new Select().from(ChildVideo.class).where("VideoUiTag = ? ", CURRENT_TAG).execute();
+        if(childVideo.size()>=4)
+            childVideos = new ArrayList<ChildVideo>(childVideo.subList(childVideo.size()-4,childVideo.size()));
+        if(childVideos==null||childVideos.size()==0||childVideos.size()<4||childVideos.get(2).youTubeId==null||childVideos.size()>4)
+            fetchVideosFromServer(CURRENT_TAG);
+        else{
+
+            updateTrainUi();
+        //    new Delete().from(ChildVideo.class).execute();
+          //  List videos =(List) new Select().from(ChildVideo.class).execute();
+          //  int i = videos.size();
         }
+
+
+//        AppConstants.addVideos();
+//        ArrayList<ChildVideo> childVideos = AppConstants.CHILDVIDEOS;
+//        int k=0;
+//        for(int i=videoStartIndex;i<4+videoStartIndex;i++,k++) {
+//            ImageView bogieImgView = (ImageView)findViewById(bogieViewIds[k]);
+//            if(k==0)
+//            bogieImgView.setPadding(screenWidth * 11 / 200, screenHeight * 14 / 100, screenWidth * 4 / 100, screenHeight *4 / 100);
+//            else
+//            bogieImgView.setPadding(screenWidth * 14 / 200, screenHeight * 14 / 100, screenWidth * 3 / 100, screenHeight *4 / 100);
+//            bogieImgView.setScaleType(ImageView.ScaleType.FIT_XY);
+//            String imgUrl = "http://img.youtube.com/vi/" + childVideos.get(i).videoUrl + "/0.jpg";
+//            Picasso.with(getApplicationContext()).load(imgUrl).placeholder(R.drawable.play_video_icon).into(bogieImgView, new Callback() {
+//                @Override
+//                public void onSuccess() {
+//                    isThumbnailLoaded = true;
+//                }
+//
+//                @Override
+//                public void onError() {
+//                    isThumbnailLoaded = false;
+//                }
+//            });
+//        }
 
     }
 
@@ -138,11 +165,13 @@ public class ChildWatchActivity extends AppCompatActivity implements View.OnClic
                 if (!isAnimPlaying) {
                     hsv.fullScroll(View.FOCUS_BACKWARD);
                     //playSound(0);
-                    ObjectAnimator transAnimation = ObjectAnimator.ofFloat(hsvParentLinear, View.TRANSLATION_X, -(screenWidth * 87 / 100), -(7 * screenWidth / 2));
+                    ObjectAnimator transAnimation = ObjectAnimator.ofFloat(hsvParentLinear, View.TRANSLATION_X, -(screenWidth * 87 / 100), -(13 * screenWidth / 4));
                     playPauseBtn.setBackgroundResource(R.drawable.green_light_button);
-                    transAnimation.setDuration(8000);
+                    transAnimation.setDuration(2500);
                     transAnimation.start();
                     startDrawables();
+
+
                     isAnimPlaying = true;
                     transAnimation.addListener(new Animator.AnimatorListener() {
                         @Override
@@ -155,6 +184,7 @@ public class ChildWatchActivity extends AppCompatActivity implements View.OnClic
                         public void onAnimationEnd(Animator animation) {
                             isAnimPlaying = false;
                             hsvParentLinear.removeAllViews();
+                            getNewVideos();
                             initTrainLayout();
                             initAnims();
                             if (videoStartIndex == 0)
@@ -180,8 +210,8 @@ public class ChildWatchActivity extends AppCompatActivity implements View.OnClic
             }
         });
 
-        ObjectAnimator transAnimation= ObjectAnimator.ofFloat(hsvParentLinear, View.TRANSLATION_X, 150, -(screenWidth*87/100));
-        transAnimation.setDuration(8000);
+        ObjectAnimator transAnimation= ObjectAnimator.ofFloat(hsvParentLinear, View.TRANSLATION_X, (screenWidth*10/100), -(screenWidth*87/100));
+        transAnimation.setDuration(2500);
         //playSound(0);
         playPauseBtn.setBackgroundResource(R.drawable.green_light_button);
         transAnimation.start();
@@ -220,6 +250,36 @@ public class ChildWatchActivity extends AppCompatActivity implements View.OnClic
 
             }
         });
+    }
+
+    private synchronized void getNewVideos() {
+
+        for(ChildVideo video: childVideos)
+        {
+            video.isVideoChange = true;
+            video.videoWatchStatus = "3";
+        }
+        if(ConnectionDetector.isConnectedToInternet(getApplicationContext()))
+            new FetchVideosByUiTagAsync("1",false,"",getChildId(),childVideos,System.currentTimeMillis())
+            {
+                @Override
+                protected void onPostExecute(Object response) {
+                    if(!response.equals(FetchVideosByUiTagAsync.RESPONSE_STRING_ERROR))
+                    {
+                        updateSharedPrefs(this.transactionId);
+                        childVideos = (ArrayList<ChildVideo>)response;
+                        updateTrainUi();
+                        saveToDatabase(childVideos);
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(),"Some Error Occured",Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }.execute();
+        else ConnectionDetector.displayNoConnectionDialog(ChildWatchActivity.this);
+
     }
 
     private void playSound(int i) {
@@ -289,7 +349,7 @@ public class ChildWatchActivity extends AppCompatActivity implements View.OnClic
         //charParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         charParams.setMargins(screenWidth*21/100, screenHeight * 7 / 100, screenWidth * 2 / 100, 0);
         engineRelativeLayout.addView(engineImgView, engineParams);
-        engineRelativeLayout.addView(charImgView,charParams);
+        //engineRelativeLayout.addView(charImgView,charParams);
         hsvParentLinear.addView(engineRelativeLayout, engineParentParams);
 
         /*-----------------------------------------------------------------------*/
@@ -348,7 +408,7 @@ public class ChildWatchActivity extends AppCompatActivity implements View.OnClic
         guardBogieLayout.addView(bogieImgView, bogieParams);
         guardBogieLayout.addView(wheelsImgView, wheelsParams);
         guardBogieLayout.addView(wheelsImgView1, wheelsParams1);
-        guardBogieLayout.addView(charImgView1,charParams1);
+        //guardBogieLayout.addView(charImgView1,charParams1);
         hsvParentLinear.addView(guardBogieLayout, bogieParentParams);
 
 
@@ -371,29 +431,38 @@ public class ChildWatchActivity extends AppCompatActivity implements View.OnClic
         wheelsImgView1.setBackgroundResource(R.drawable.bogie_wheel);
         wheelsParams1.setMargins(screenWidth * 23 / 100, screenHeight*60/100, 0, 0);
         animationDrawables[2*index]=(AnimationDrawable)wheelsImgView.getBackground();
-        animationDrawables[2*index+1]=(AnimationDrawable)wheelsImgView1.getBackground();;
+        animationDrawables[2*index+1]=(AnimationDrawable)wheelsImgView1.getBackground();
 
         ImageView charImgView = new ImageView(this);
         RelativeLayout.LayoutParams charParams;
+        ImageView playImgView = new ImageView(this);
+        RelativeLayout.LayoutParams playParams = new RelativeLayout.LayoutParams(screenWidth*6/100,screenHeight*10/100);
+        playParams.setMargins(screenWidth*17/100,screenHeight*45/100,screenWidth*5/100,0);
+        playImgView.setImageResource(R.drawable.bw_button);
+
         if(index==0) {
             charParams = new RelativeLayout.LayoutParams(screenWidth * 30 / 100, screenHeight * 40 / 100);
-            charParams.setMargins(0,screenHeight*12/100,screenWidth*5/100,0);
+            charParams.setMargins(0, screenHeight * 12 / 100, screenWidth * 5 / 100, 0);
             charImgView.setBackgroundResource(R.drawable.char_2);
+
         }
         else if(index==1) {
             charParams = new RelativeLayout.LayoutParams(screenWidth * 32 / 100, screenHeight * 30 / 100);
-            charParams.setMargins(0,screenHeight*17/100,screenWidth*5/100,0);
+            charParams.setMargins(0, screenHeight * 17 / 100, screenWidth * 5 / 100, 0);
             charImgView.setBackgroundResource(R.drawable.char_3);
+
         }
         else if(index==2) {
             charParams = new RelativeLayout.LayoutParams(screenWidth * 30 / 100, screenHeight * 45 / 100);
             charImgView.setBackgroundResource(R.drawable.char_4);
-            charParams.setMargins(0,screenHeight*3/100,screenWidth*1/100,0);
+            charParams.setMargins(0, screenHeight * 3 / 100, screenWidth * 1 / 100, 0);
+
         }
         else if(index==3) {
             charParams = new RelativeLayout.LayoutParams(screenWidth * 25 / 100, screenHeight * 40 / 100);
             charImgView.setBackgroundResource(R.drawable.char_5);
-            charParams.setMargins(0,0,screenWidth*5/100,0);
+            charParams.setMargins(0, 0, screenWidth * 5 / 100, 0);
+
         }
         else if(index==4) {
             charParams = new RelativeLayout.LayoutParams(screenWidth * 25 / 100, screenHeight * 40 / 100);
@@ -421,8 +490,12 @@ public class ChildWatchActivity extends AppCompatActivity implements View.OnClic
         setOnClickListeners(bogieImgView, index);
         bogieRelativeLayout.addView(bogieImgView, bogieParams);
         bogieRelativeLayout.addView(wheelsImgView, wheelsParams);
-        bogieRelativeLayout.addView(wheelsImgView1,wheelsParams1);
-        //bogieRelativeLayout.addView(charImgView,charParams);
+        bogieRelativeLayout.addView(wheelsImgView1, wheelsParams1);
+
+
+
+
+        bogieRelativeLayout.addView(playImgView, playParams);
         return bogieRelativeLayout;
     }
 
@@ -433,50 +506,62 @@ public class ChildWatchActivity extends AppCompatActivity implements View.OnClic
         bogieImgView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ConnectionDetector.isConnectedToInternet(ChildWatchActivity.this)&&isThumbnailLoaded) {
-                    int viewId = v.getId();
+                int viewId = v.getId();
+                int mod = viewId/100;
+                if (ConnectionDetector.isConnectedToInternet(ChildWatchActivity.this)&&mod<4) {
+
                     isVideoClicked = true;
                     Intent intent = new Intent(ChildWatchActivity.this, YouTubePlayerActivity.class);
-                    if (viewId / 100 == 0) {
+                    if (isThumbnailLoaded[mod]) {
                         // Toast.makeText(getApplicationContext(), "Clicked: Frog Layout", Toast.LENGTH_SHORT).show();
 
-                        String vidId = AppConstants.CHILDVIDEOS.get(videoStartIndex).videoUrl;
+                        String vidId = childVideos.get(mod).youTubeId;
                         updateVideo(vidId);
                         intent.putExtra("VideoId", vidId);
+                        intent.putExtra("VideoIndex",mod);
                         startActivity(intent);
-                    }
-                    if (viewId / 100 == 1) {
-//                    Toast.makeText(getApplicationContext(), "Clicked: Spidey Layout", Toast.LENGTH_SHORT).show();
-                        String vidId = AppConstants.CHILDVIDEOS.get(videoStartIndex + 1).videoUrl;
-                        updateVideo(vidId);
-                        intent.putExtra("VideoId", vidId);
-                        startActivity(intent);
-                    }
-                    if (viewId / 100 == 2) {
-//                    Toast.makeText(getApplicationContext(), "Clicked: Pup Layout", Toast.LENGTH_SHORT).show();
-                        String vidId = AppConstants.CHILDVIDEOS.get(videoStartIndex + 2).videoUrl;
-                        updateVideo(vidId);
-                        intent.putExtra("VideoId", vidId);
-                        startActivity(intent);
-                    }
-                    if (viewId / 100 == 3) {
-//                    Toast.makeText(getApplicationContext(), "Clicked: Sparrow Layout", Toast.LENGTH_SHORT).show();
-                        String vidId = AppConstants.CHILDVIDEOS.get(videoStartIndex + 3).videoUrl;
-                        updateVideo(vidId);
-                        intent.putExtra("VideoId", vidId);
-                        startActivity(intent);
-                    }
-//                startActivity(intent);
-                    if (viewId / 100 == 4) {
-                   // Toast.makeText(getApplicationContext(), "Clicked: Guard Layout", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }else  if (mod<4&&!isThumbnailLoaded[mod])
+                        new DialogBox(ChildWatchActivity.this, "Thumbnail not loaded");
+
+//                    if (viewId / 100 == 1&& isThumbnailLoaded[mod]) {
+////                    Toast.makeText(getApplicationContext(), "Clicked: Spidey Layout", Toast.LENGTH_SHORT).show();
+//                        String vidId = childVideos.get(1).youTubeId;
+//                        updateVideo(vidId);
+//                        intent.putExtra("VideoId", vidId);
+//                        intent.putExtra("VideoIndex",1);
+//                        startActivity(intent);
+//                        finish();
+//                    }else if (!isThumbnailLoaded[mod])
+//                        new DialogBox(ChildWatchActivity.this, "Thumbnail not loaded");
+//                    if (viewId / 100 == 2&& isThumbnailLoaded[mod]) {
+////                    Toast.makeText(getApplicationContext(), "Clicked: Pup Layout", Toast.LENGTH_SHORT).show();
+//                        String vidId = childVideos.get(2).youTubeId;
+//                        updateVideo(vidId);
+//                        intent.putExtra("VideoId", vidId);
+//                        intent.putExtra("VideoIndex",2);
+//                        startActivity(intent);
+//                        finish();
+//                    }else if (!isThumbnailLoaded[mod])
+//                        new DialogBox(ChildWatchActivity.this, "Thumbnail not loaded");
+//                    if (viewId / 100 == 3&& isThumbnailLoaded[mod]) {
+////                    Toast.makeText(getApplicationContext(), "Clicked: Sparrow Layout", Toast.LENGTH_SHORT).show();
+//                        String vidId = childVideos.get(3).youTubeId;
+//                        updateVideo(vidId);
+//                        intent.putExtra("VideoId", vidId);
+//                        intent.putExtra("VideoIndex",3);
+//                        startActivity(intent);
+//                        finish();
+//                    } else if (!isThumbnailLoaded[mod])
+//                        new DialogBox(ChildWatchActivity.this, "Thumbnail not loaded");
+////                startActivity(intent);
+
+
+                }else if (viewId / 100 == 4) {
+                    // Toast.makeText(getApplicationContext(), "Clicked: Guard Layout", Toast.LENGTH_SHORT).show();
                     //String vidId=AppConstants.CHILDVIDEOS.get(videoStartIndex+1).videoUrl;
                     //intent.putExtra("VideoId", vidId);
-                        startActivity(new Intent(ChildWatchActivity.this,ChildVideoHistoryActivity.class));
-                    }
-                }
-                else if(!isThumbnailLoaded)
-                {
-                    new DialogBox(ChildWatchActivity.this,"Thumbnail not loaded");
+                    startActivity(new Intent(ChildWatchActivity.this, ChildVideoHistoryActivity.class));
                 }
                 else
                     ConnectionDetector.displayNoConnectionDialog(ChildWatchActivity.this);
@@ -486,17 +571,36 @@ public class ChildWatchActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void updateVideo(String vidId) {
-        ChildVideo videoClicked = new Select().from(ChildVideo.class).where("VideoUrl = ?",String.valueOf(vidId)).executeSingle();
-        videoClicked.isVideoWatched=true;
-        videoClicked.save();
+        List<ChildVideo> videos = new Select().all().from(ChildVideo.class).where("VideoUiTag = ? ", CURRENT_TAG).execute();
+        if(videos!=null)
+            videos = videos.subList(videos.size()-4,videos.size());
+        int i=0;
+        for(ChildVideo video: videos) {
+            video = videos.get(i);
+            video.isVideoWatched = true;
+            video.videoIteration = childVideos.get(i).videoIteration;
+            video.videoIteration += 1;
+            video.isVideoChange = false;
+            video.videoWatchStatus = "2";
+            video.save();
+            i++;
+        }
 
     }
 
     private void initUI() {
 
+        childVideos = new ArrayList<ChildVideo>();
+//        activityUiTagImageView = (ImageView)findViewById(R.id.activity_icon);
+//        activityUiTagImageView.setOnClickListener(this);
+//        rhythmUiTagImageView = (ImageView)findViewById(R.id.rhythm_icon);
+//        rhythmUiTagImageView.setOnClickListener(this);
+//        storyUiTagImageView = (ImageView)findViewById(R.id.story_icon);
+//        storyUiTagImageView.setOnClickListener(this);
         animationDrawables = new AnimationDrawable[11];
         characterAnimDrawable = new AnimationDrawable[5];
         bogieViewIds = new int[5];
+        isThumbnailLoaded = new boolean[4];
         animatedViewIds = new int[11];
         screenHeight = getResources().getDisplayMetrics().heightPixels;
         screenWidth = getResources().getDisplayMetrics().widthPixels;
@@ -506,6 +610,8 @@ public class ChildWatchActivity extends AppCompatActivity implements View.OnClic
         parentalIcon.setOnClickListener(this);
         ImageView parentalIcon1=(ImageView)findViewById(R.id.parental_icon_1);
         parentalIcon1.setOnClickListener(this);
+        ImageView childHistoryIcon = (ImageView)findViewById(R.id.child_history_icon);
+        childHistoryIcon.setOnClickListener(this);
     }
 
     @Override
@@ -513,22 +619,145 @@ public class ChildWatchActivity extends AppCompatActivity implements View.OnClic
         final int idE = Integer.parseInt("111100");
         switch(v.getId())
         {
-            case R.id.parental_icon: startActivity(new Intent(ChildWatchActivity.this, NewParentWatchPage.class));
+            case R.id.parental_icon: startActivity(new Intent(ChildWatchActivity.this, ParentAnalyticsScreen.class));
                 break;
             case R.id.parental_icon_1: startActivity(new Intent(ChildWatchActivity.this, ExoPlayerActivity.class));
                 break;
             case 111100: //startCharAnim(ELEPHANT_CHAR_ID);
                 break;
+//            case R.id.story_icon: CURRENT_TAG = STORY;
+//                initVideos();
+//                //fetchVideosFromServer(STORY);
+//                break;
+//            case R.id.activity_icon:CURRENT_TAG = ACTIVITY;
+//                initVideos();
+//                //fetchVideosFromServer(ACTIVITY);
+//                break;
+//            case R.id.rhythm_icon: CURRENT_TAG = RHYTHM;
+//                initVideos();
+//                //fetchVideosFromServer(RHYTHM);
+//                break;
+            case R.id.child_history_icon : startActivity(new Intent(ChildWatchActivity.this,ChildVideoHistoryActivity.class));
+                break;
         }
     }
 
-    private void startCharAnim(String charAnimId) {
+    private String getChildId() {
 
-        String charId = charAnimId;
-        if(charId.equals(ELEPHANT_CHAR_ID))
+        ChildProfile profile = new Select().all().from(ChildProfile.class).executeSingle();
+        if(profile!=null)
+            return profile.childID;
+        else
+            return "";
+
+    }
+
+    private void fetchVideosFromServer(String uiTag) {
+
+
+        if(ConnectionDetector.isConnectedToInternet(getApplicationContext()))
+        new FetchVideosByUiTagAsync(uiTag,true,"",getChildId(),null,System.currentTimeMillis())
         {
-            characterAnimDrawable[ElephantIndex].start();
-        }
+            @Override
+            protected void onPostExecute(Object response) {
+                if(!response.equals(FetchVideosByUiTagAsync.RESPONSE_STRING_ERROR))
+                {
+                    updateSharedPrefs(this.transactionId);
+                    childVideos = (ArrayList<ChildVideo>)response;
+                    updateTrainUi();
+                    saveToDatabase(childVideos);
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Some Error Occured",Toast.LENGTH_SHORT).show();
+                }
 
+            }
+        }.execute();
+        else ConnectionDetector.displayNoConnectionDialog(ChildWatchActivity.this);
     }
+
+    private void saveToDatabase(ArrayList<ChildVideo> childVideos) {
+
+        List videos = new ArrayList<ChildVideo>();
+        videos =(List) new Select().from(ChildVideo.class).execute();
+//        if(videos!=null)
+//            clearDataBase();
+
+      //  videos =(List) new Select().from(ChildVideo.class).execute();
+        for(int i=0;i<childVideos.size();i++)
+        {
+            ChildVideo video = childVideos.get(i);
+            video.youTubeId = childVideos.get(i).youTubeId;
+            video.videoIteration = childVideos.get(i).videoIteration;
+            video.save();
+            childVideos.get(i).save();
+            i++;
+        }
+    }
+
+    private synchronized void clearDataBase() {
+        new Delete().from(ChildVideo.class).where("VideoUiTag = ?", RHYTHM).execute();
+    }
+
+    private void updateSharedPrefs(long transactionId) {
+        SharedPreferences prefs=this.getSharedPreferences(SharedPrefs.SHARED_PREFS_NAME, 0);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putLong(SharedPrefs.TRANSACTION_ID,transactionId);
+        editor.commit();
+    }
+
+    private void updateTrainUi() {
+
+//        int k=0;
+        for(int k=0;k<childVideos.size();k++) {
+            ImageView bogieImgView = (ImageView) findViewById(bogieViewIds[k]);
+            if (k == 0)
+                bogieImgView.setPadding(screenWidth * 11 / 200, screenHeight * 14 / 100, screenWidth * 4 / 100, screenHeight * 4 / 100);
+            else
+                bogieImgView.setPadding(screenWidth * 14 / 200, screenHeight * 14 / 100, screenWidth * 3 / 100, screenHeight * 4 / 100);
+            bogieImgView.setScaleType(ImageView.ScaleType.FIT_XY);
+
+            String imgUrl = "http://img.youtube.com/vi/" + childVideos.get(k).youTubeId + "/0.jpg";
+            final int index=k;
+            Picasso.with(getApplicationContext()).load(imgUrl).placeholder(R.drawable.play_video_icon).into(bogieImgView, new Callback() {
+                @Override
+                public void onSuccess() {
+                    isThumbnailLoaded[index] = true;
+                }
+
+                @Override
+                public void onError() {
+                    isThumbnailLoaded[index] = false;
+                }
+            });
+
+        }
+    }
+
+//    private void parseResponse(String responseString) {
+//
+//        ChildVideo video = new ChildVideo();
+//        for(int i=0;i<4;i++)
+//        {
+//            try {
+//                JSONObject jsonObject = new JSONObject(responseString);
+//                JSONObject obj = jsonObject.getJSONObject(String.valueOf(i));
+//
+//            }
+//            catch (JSONException ex){}
+//        }
+//
+//
+//    }
+
+//    private void startCharAnim(String charAnimId) {
+//
+//        String charId = charAnimId;
+//        if(charId.equals(ELEPHANT_CHAR_ID))
+//        {
+//            characterAnimDrawable[ElephantIndex].start();
+//        }
+//
+//    }
 }

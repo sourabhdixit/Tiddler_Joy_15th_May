@@ -53,10 +53,24 @@ public class ParentWatchPageActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_parent_watch_page);
+        initFont();
 //        initData();
 //        initUI();
 //        setupChildList();
 
+    }
+
+    private void initFont() {
+        String fontPath = "fonts/Amaranth-BoldItalic.otf";
+
+        // text view label
+        TextView txtGhost = (TextView) findViewById(R.id.app_title);
+
+        // Loading Font Face
+        Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
+
+        // Applying font
+        txtGhost.setTypeface(tf);
     }
 
     @Override

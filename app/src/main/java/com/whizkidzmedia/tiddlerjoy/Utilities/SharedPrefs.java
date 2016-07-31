@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
  */
 public class SharedPrefs {
 
+    public static final String USER_OTP = "ref_code" ;
     private Context context;
     private SharedPreferences prefs;
     public static final String SHARED_PREFS_NAME = "TiddlerJoy";
@@ -17,6 +18,7 @@ public class SharedPrefs {
     public static final String USER_ID="user_id";
     public static final String USER_TOKEN="user_token";
     public static final String LOGGED_IN_STATUS="logged_in_status";
+    public static final String TRANSACTION_ID="transation_id";
 
     public void createSharedPreferences(Context ctx)
     {

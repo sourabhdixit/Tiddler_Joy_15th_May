@@ -148,7 +148,7 @@ public class ParentVideoHistoryActivity extends AppCompatActivity implements Vie
             if(!video.creativityTags.equals(" ")&&learningArea.equals(CREATIVITY_VIEW_ID))
             {categoryVideos.add(video);categoryTextView.setText("Communication");}
         }
-        listAdapter = new ParentVideoHistoryListAdapter(ParentVideoHistoryActivity.this,categoryVideos);
+//        listAdapter = new ParentVideoHistoryListAdapter(ParentVideoHistoryActivity.this,watchedVideos);
         videoList.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();
         videoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

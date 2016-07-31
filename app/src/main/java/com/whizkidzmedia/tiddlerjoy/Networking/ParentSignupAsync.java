@@ -39,9 +39,9 @@ public class ParentSignupAsync extends AsyncTask<Void,Void,String> {
         String responseString = "";
         try {
             JSONObject jobj = new JSONObject();
-            jobj.put(USER_REGISTER_FIRSTNAME,userName); // user contact number
-            jobj.put(USER_REGISTER_EMAIL,userEmail);            //user email
-            jobj.put(USER_REGISTER_MOBILE,userContactNumber);             //username or first_name
+            jobj.put(USER_REGISTER_FIRSTNAME,userName);
+            jobj.put(USER_REGISTER_EMAIL,userEmail);
+            jobj.put(USER_REGISTER_MOBILE, userContactNumber);
             final String resp = postToServer(url,jobj.toString());
             JSONObject obj = new JSONObject(resp);
             responseString = resp.toString();

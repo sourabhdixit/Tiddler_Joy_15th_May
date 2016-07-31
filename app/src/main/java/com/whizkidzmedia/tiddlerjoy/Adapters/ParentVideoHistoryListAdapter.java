@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.whizkidzmedia.tiddlerjoy.DataModels.ChildHistoryVideo;
 import com.whizkidzmedia.tiddlerjoy.DataModels.ChildVideo;
 import com.whizkidzmedia.tiddlerjoy.R;
 
@@ -22,12 +23,12 @@ public class ParentVideoHistoryListAdapter extends BaseAdapter {
     private Context mContext;
     //    private final String[] web;
 //    private final int[] Imageid;
-    ArrayList<ChildVideo> videoData;
+    ArrayList<ChildHistoryVideo> videoData;
     int screenHeight,screenWidth;
     RelativeLayout.LayoutParams vidImgParams,imgParentParams ;
 
 
-    public ParentVideoHistoryListAdapter(Context c,ArrayList<ChildVideo> data) {
+    public ParentVideoHistoryListAdapter(Context c,ArrayList<ChildHistoryVideo> data) {
         mContext = c;
         this.videoData = data;
         screenHeight = mContext.getResources().getDisplayMetrics().heightPixels;
@@ -61,7 +62,7 @@ public class ParentVideoHistoryListAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         RelativeLayout imgParent=null;
-        String imgUrl = "http://img.youtube.com/vi/" + videoData.get(position).videoUrl + "/0.jpg";
+        String imgUrl = "http://img.youtube.com/vi/" + videoData.get(position).youTubeId + "/0.jpg";
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.video_history_list_element, null);
             viewHolder.vidTitle = (TextView) convertView.findViewById(R.id.video_title);
@@ -76,7 +77,7 @@ public class ParentVideoHistoryListAdapter extends BaseAdapter {
         imgParent = (RelativeLayout)convertView.findViewById(R.id.image_layout);
         imgParent.setLayoutParams(imgParentParams);
         Picasso.with(mContext).load(imgUrl).into(viewHolder.iv);
-        viewHolder.vidTitle.setText(videoData.get(position).videoTitle);
+        viewHolder.vidTitle.setText(videoData.get(position).youTubeId);
         //viewHolder.vidTopic.setText(videoData.get(position).videoUiTag);
         return convertView;
     }

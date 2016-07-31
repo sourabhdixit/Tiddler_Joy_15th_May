@@ -17,6 +17,7 @@ public class UserProfile extends Model {
     public static final String TOKEN="token";
     public static final String IS_CHILD_ADDED="is_child_added";
     public static final String CHILD_COUNT="child_count";
+    public static final String OTP_CODE = "ref_code";
 
 
     @Column(name="UserName")
@@ -30,4 +31,6 @@ public class UserProfile extends Model {
 
     @Column(name="UserId")
     public String userId;
+    @Column(name="Otp")
+    public String otp;
 }

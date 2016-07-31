@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,11 +16,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".08"/>
+        android:layout_weight=".15"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".22"
+        android:layout_weight=".21"
         android:orientation="horizontal">
     <View
         android:layout_width="0dp"
@@ -56,6 +57,12 @@
                 app:riv_border_color="#333333"
                 app:riv_mutate_background="true"
                 app:riv_oval="true" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="10dp"
+                android:src="@drawable/camera_pic"/>
         </RelativeLayout>
     <View
         android:layout_width="0dp"
@@ -65,7 +72,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".07"/>
+        android:layout_weight=".06"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -82,7 +89,7 @@
             android:layout_marginLeft="10dp"
             android:id="@+id/name_input_edittext"
             android:layout_width="0dp"
-            android:layout_weight=".62"
+            android:layout_weight=".60"
             android:paddingLeft="5dp"
             android:layout_height="match_parent"
             android:maxEms="1"
@@ -204,4 +211,20 @@
         app:whorlview_strokeWidth="20"
         app:whorlview_sweepAngle="90">
     </com.tt.whorlviewlibrary.WhorlView>
+    <ImageView
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/info_button"
+        android:layout_alignParentRight="true"/>
+    <TextView
+
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:textColor="#AA510051"
+        android:id="@+id/add_child_text"
+        android:text="Input your child's details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

@@ -1,5 +1,9 @@
 package com.whizkidzmedia.tiddlerjoy.Utilities;
 
+import android.content.Context;
+import android.graphics.Typeface;
+
+import com.activeandroid.app.Application;
 import com.squareup.okhttp.MediaType;
 import com.whizkidzmedia.tiddlerjoy.DataModels.ChildVideo;
 
@@ -118,6 +122,18 @@ public class AppConstants {
         return  worldAroundMeTopics.subList(start, end);
     }
 
+    public static Typeface getAppTypeface(Context ctx)
+    {
+        String fontPath = "fonts/Amaranth-BoldItalic.otf";
+        if(APP_TYPEFACE==null)
+        {
+            APP_TYPEFACE = Typeface.createFromAsset(ctx.getAssets(), fontPath);
+        }
+        return APP_TYPEFACE;
+
+
+    }
+
     public static ArrayList<String> getMyselfTopics()
     {
         return  myselfTopics;
@@ -138,4 +154,5 @@ public class AppConstants {
     {
         return  worldAroundMeTopics;
     }
+    public static Typeface APP_TYPEFACE=null;
 }

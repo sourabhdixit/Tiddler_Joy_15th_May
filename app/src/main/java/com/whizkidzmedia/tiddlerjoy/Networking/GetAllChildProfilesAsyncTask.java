@@ -31,7 +31,7 @@ public GetAllChildProfilesAsyncTask(String userid)
 
 @Override
 protected ArrayList<ChildProfile> doInBackground(Void... voids) {
-        String url = API.CHILD_PROFILES_LISTINGS;
+        String url = API.CONTENT_CHILD_PROFILES_LISTINGS;
         JSONObject jsonObject = new JSONObject();
         String responseString = "";
         OkHttpClient client= new OkHttpClient();

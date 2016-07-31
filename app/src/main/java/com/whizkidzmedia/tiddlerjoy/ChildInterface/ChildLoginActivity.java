@@ -8,8 +8,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Shader;
 import android.graphics.drawable.AnimationDrawable;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,11 +36,13 @@ import com.whizkidzmedia.tiddlerjoy.Utilities.SharedPrefs;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ChildLoginActivity extends AppCompatActivity {
     boolean isRunningf1=false,isRunningf2=false,greenLightAnimOn=false,redLightAnimOn=false;
     ProgressDialog asyncDialog;
     List<ChildProfile> profiles;
+//    TextToSpeech tts;
     int screenHeight,screenWidth;
 
     @Override
@@ -51,6 +55,9 @@ public class ChildLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_child_login);
         initUI();
         initAnims();
+        //tts = new TextToSpeech(this, this);
+//        tts.setPitch(1);
+        //speakOut();
         profiles = new Select().from(ChildProfile.class).execute();
         if(profiles.size()==0)
         {
@@ -98,7 +105,7 @@ public class ChildLoginActivity extends AppCompatActivity {
         childName.setLayoutParams(llParams);
         childName.setText(childNameString);
         childName.setTextColor(Color.parseColor("#ff0000"));
-        childName.setTextSize(14f);
+        childName.setTextSize(24f);
         return childName;
     }
 
@@ -265,4 +272,29 @@ public class ChildLoginActivity extends AppCompatActivity {
         editor.putBoolean("isFirstTimeLogin", false);
         editor.commit();
     }
+
+    public void speakOut()
+    {
+        String text = "Hello!!! ";//txtText.getText().toString();
+        String utteranceId=this.hashCode() + "";
+//        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
+//    @Override
+//    public void onInit(int status) {
+//        if (status == TextToSpeech.SUCCESS) {
+//
+//            int result = tts.setLanguage(Locale.US);
+//
+//            if (result == TextToSpeech.LANG_MISSING_DATA
+//                    || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+//                Log.e("TTS", "This Language is not supported");
+//            } else {
+//                speakOut();
+//            }
+//
+//        } else {
+//            Log.e("TTS", "Initilization Failed!");
+//        }
+//    }
 }

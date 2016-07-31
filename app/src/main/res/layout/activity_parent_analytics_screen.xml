@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.whizkidzmedia.tiddlerjoy.ParentInterface.ParentAnalyticsScreen">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/tool_bar"
+        ></include>
+
+    <android.support.v4.widget.DrawerLayout
+        android:layout_below="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/drawer_layout">
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            </FrameLayout>
+
+        <TabHost
+            android:id="@+id/tabHost"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <RelativeLayout android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:padding="1dp">
+
+
+
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="25dp"
+                android:layout_alignParentBottom="true"></TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="40dp">
+
+            <LinearLayout
+                android:id="@+id/tab1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffc916"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@drawable/summary_pg_bg"
+                    android:weightSum="1">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight=".6"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight=".6"
+                            >
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginLeft="5dp"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/sun_button"/>
+
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/child_image"
+                                android:layout_height="70dp"
+                                android:layout_width="70dp"
+                                android:src="@drawable/female"
+                                android:layout_centerInParent="true"
+                                android:scaleType="fitXY"
+                                app:riv_corner_radius="20dip"
+                                app:riv_border_width="0dip"
+                                app:riv_border_color="#333333"
+                                app:riv_mutate_background="false"
+                                android:background="@drawable/sun_button"
+                                app:riv_oval="true" />
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight=".40"
+                            android:orientation="vertical"
+                            android:weightSum="1">
+
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:gravity="bottom"
+                                android:weightSum="1"
+                                >
+                                <ImageView
+                                    android:id="@+id/myself_plant"
+                                    android:layout_width="0dp"
+                                    android:layout_weight=".2"
+                                    android:layout_marginTop="40dp"
+                                    android:scaleType="fitXY"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/plant_3"/>
+                                <ImageView
+                                    android:layout_width="0dp"
+                                    android:layout_weight=".2"
+                                    android:scaleType="center"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/plant_1"
+                                    android:id="@+id/communication_plant" />
+                                <ImageView
+                                    android:layout_width="0dp"
+                                    android:layout_weight=".2"
+                                    android:layout_marginTop="30dp"
+                                    android:scaleType="fitXY"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/plant_2"
+                                    android:id="@+id/beautiful_world_plant" />
+                                <ImageView
+                                    android:layout_width="0dp"
+                                    android:layout_weight=".2"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_marginLeft="-5dp"
+                                    android:scaleType="fitXY"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/plant_4"
+                                    android:id="@+id/creativity_plant" />
+                                <ImageView
+                                    android:layout_width="0dp"
+                                    android:layout_weight=".2"
+                                    android:scaleType="fitXY"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/plant_5"
+                                    android:id="@+id/early_maths_plant" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="-8dp"
+                        android:layout_height="5dp"
+                        android:background="@drawable/plant_platform">
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight=".4"
+                        android:orientation="horizontal"
+                        >
+
+                        <android.support.v4.view.ViewPager
+                            android:id="@+id/viewpager"
+                            android:layout_margin="1dp"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/tab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/parent_video_history_bg"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:visibility="visible"
+                        android:id="@+id/tab_selector"
+                        android:padding="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="75dp"
+                        android:weightSum="1"
+                        android:layout_alignParentTop="true">
+
+                        <ImageView
+                            android:id="@+id/all_about_me"
+                            android:layout_width="0dp"
+                            android:layout_weight=".2"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/aboutme_button"/>
+                        <ImageView
+                            android:id="@+id/early_maths"
+                            android:layout_width="0dp"
+                            android:layout_weight=".2"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/earlymaths_button"/>
+                        <ImageView
+                            android:id="@+id/creativity"
+                            android:layout_width="0dp"
+                            android:layout_weight=".2"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/creativity_button"/>
+                        <ImageView
+                            android:id="@+id/beautiful_world"
+                            android:layout_width="0dp"
+                            android:layout_weight=".2"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/beautifulworld_button"/>
+                        <ImageView
+                            android:id="@+id/communication"
+                            android:layout_width="0dp"
+                            android:layout_weight=".2"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/communication_button"/>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_below="@+id/tab_selector"
+                        android:layout_marginTop="-10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        />
+                    <View
+                        android:id="@+id/divider_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"/>
+                    <TextView
+                        android:layout_below="@+id/divider_layout"
+                        android:id="@+id/category_tview"
+                        android:visibility="gone"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="20sp"
+                        android:layout_margin="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Category"
+                        />
+                    <ListView
+                        android:layout_below="@+id/category_tview"
+                        android:padding="20dp"
+                        android:visibility="visible"
+                        android:layout_marginLeft="15dp"
+                        android:id="@+id/video_listview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="380dp"
+                        />
+                </RelativeLayout>
+            </FrameLayout>
+        </RelativeLayout>
+
+
+        </TabHost>
+
+        <ListView
+            android:id="@+id/drawer"
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
+            android:background="#fff"
+            android:layout_gravity="start">
+        </ListView>
+
+    </android.support.v4.widget.DrawerLayout>
+
+</RelativeLayout>

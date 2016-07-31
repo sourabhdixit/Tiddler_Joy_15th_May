@@ -5,21 +5,17 @@
         android:id="@+id/menu_red"
         android:orderInCategory="1"
         app:showAsAction="never"
-        android:title="@string/option_one_string"/>
-    <item
-        android:id="@+id/menu_green"
-        android:orderInCategory="2"
-        app:showAsAction="never"
         android:title="@string/option_two_string"/>
-    <item
-        android:id="@+id/menu_blue"
-        android:orderInCategory="3"
-        app:showAsAction="never"
-        android:title="@string/option_three_string"/>
-    <item
-        android:id="@+id/menu_orange"
-        android:orderInCategory="4"
-        app:showAsAction="never"
-        android:title="@string/option_four_string"/>
+    <!--<item-->
+        <!--android:id="@+id/menu_green"-->
+        <!--android:orderInCategory="2"-->
+        <!--app:showAsAction="never"-->
+        <!--android:title="@string/option_two_string"/>-->
+    <!--<item-->
+        <!--android:id="@+id/menu_blue"-->
+        <!--android:orderInCategory="3"-->
+        <!--app:showAsAction="never"-->
+        <!--android:title="@string/option_three_string"/>-->
+
 
 </menu>

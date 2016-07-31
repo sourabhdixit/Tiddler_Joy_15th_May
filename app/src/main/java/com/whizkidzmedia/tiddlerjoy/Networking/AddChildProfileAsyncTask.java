@@ -88,6 +88,9 @@ private ChildProfile parseResponse(String responseString) {
         }
 
         }
+        else{
+                childProfile.childName = responseString;
+        }
         return childProfile;
         }
 

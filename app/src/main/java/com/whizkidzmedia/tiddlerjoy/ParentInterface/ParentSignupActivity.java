@@ -1,8 +1,10 @@
 package com.whizkidzmedia.tiddlerjoy.ParentInterface;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.provider.Settings;
@@ -10,10 +12,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.activeandroid.query.Select;
 import com.tt.whorlviewlibrary.WhorlView;
 import com.whizkidzmedia.tiddlerjoy.ChildInterface.ChildLoginActivity;
 import com.whizkidzmedia.tiddlerjoy.DataModels.UserProfile;
@@ -31,6 +38,8 @@ public class ParentSignupActivity extends AppCompatActivity implements View.OnCl
     TextView userName,userMobile,userEmail;
     Button regsiterBtn;
     UserProfile userProfile;
+    static Dialog otpDialog;
+    EditText otpEt;
     public static final int INVALID_EMAIL=2;
     public static final int INVALID_NUMBER=3;
     public static final int INVALID_NAME=4;
@@ -41,13 +50,44 @@ public class ParentSignupActivity extends AppCompatActivity implements View.OnCl
 
     WhorlView loadingView;
     String deviceID;
+    String  otpString;
+    private String dialogMessage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parent_register);
         setTitle("Parent Onboarding");
        // getSupportActionBar().hide();
+
         initUI();
+        initFont();
+    }
+
+    private void initFont() {
+        String fontPath = "fonts/Amaranth-BoldItalic.otf";
+
+        // text view label
+        TextView txtGhost = (TextView) findViewById(R.id.app_title);
+      //  TextView txtSignup = (TextView) findViewById(R.id.signup_text);
+        TextView txtTagLine = (TextView) findViewById(R.id.tag_line);
+        TextView txtAlready = (TextView) findViewById(R.id.already_reg);
+        EditText parentM = (EditText)findViewById(R.id.parent_registration_mobile);
+        EditText parentE = (EditText)findViewById(R.id.parent_registration_email);
+
+
+
+        // Loading Font Face
+        Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
+
+        // Applying font
+        txtGhost.setTypeface(tf);
+      //  txtSignup.setTypeface(tf);
+        txtTagLine.setTypeface(tf);
+        txtAlready.setTypeface(tf);
+        parentE.setTypeface(tf);
+        parentM.setTypeface(tf);
+        regsiterBtn.setTypeface(tf);
     }
 
     @Override
@@ -82,7 +122,7 @@ public class ParentSignupActivity extends AppCompatActivity implements View.OnCl
         WifiManager manager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         WifiInfo info = manager.getConnectionInfo();
         String address = info.getMacAddress();
-        Toast.makeText(getApplicationContext(),"Android Id:"+android_id+" Device Id:"+deviceID+"MAC Addr:"+address,Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Android Id:" + android_id + " Device Id:" + deviceID + "MAC Addr:" + address, Toast.LENGTH_LONG).show();
 
     }
 
@@ -154,10 +194,10 @@ public class ParentSignupActivity extends AppCompatActivity implements View.OnCl
                         userProfile.mobileNumber=jsonObject.getString(UserProfile.MOBILE_NUMBER);
                         userProfile.userId=jsonObject.getString(UserProfile.ID);
                         userProfile.username=jsonObject.getString(UserProfile.FIRST_NAME);
+                        userProfile.otp = jsonObject.getString(UserProfile.OTP_CODE);
+                        otpString = userProfile.otp;
                         userProfile.save();
-                        saveSharedPreferences();
-                        startActivity(new Intent(ParentSignupActivity.this, AddChildProfileActivity.class));
-                        finish();
+                        showOtpDialog();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -176,13 +216,40 @@ public class ParentSignupActivity extends AppCompatActivity implements View.OnCl
                 }
                 else
                 {
-                    new DialogBox(ParentSignupActivity.this,"Unable to register, try again !!!");
+                    new DialogBox(ParentSignupActivity.this,"Could not register due to connectivity issues, please try again !!!");
                 }
             }
         }.execute();
         else
             ConnectionDetector.displayNoConnectionDialog(ParentSignupActivity.this);
 
+
+    }
+
+    private void showOtpDialog() {
+
+            otpDialog = new Dialog(ParentSignupActivity.this);
+            otpDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            otpDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            otpDialog.setContentView(R.layout.otp_dialog_layout);
+            otpEt = (EditText) otpDialog.findViewById(R.id.otp_text);
+            otpEt.setText(this.dialogMessage);
+//            ImageView image = (ImageView) otpDialog.findViewById(R.id.image);
+            otpDialog.show();
+            Button okBtn = (Button)otpDialog.findViewById(R.id.dialogButtonOK);
+            okBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(otpString.equals(otpEt.getText().toString().toUpperCase())) {
+                        otpDialog.dismiss();
+                        saveSharedPreferences();
+                        startActivity(new Intent(ParentSignupActivity.this, AddChildProfileActivity.class));
+                        finish();
+                    }
+                    else
+                        Toast.makeText(ParentSignupActivity.this, "Invalid OTP entered", Toast.LENGTH_LONG).show();
+                }
+            });
 
     }
 
@@ -193,7 +260,8 @@ public class ParentSignupActivity extends AppCompatActivity implements View.OnCl
         editor.putString(SharedPrefs.USER_NAME,userProfile.username);
         editor.putString(SharedPrefs.USER_EMAIL,userProfile.email);
         editor.putString(SharedPrefs.USER_NUMBER,userProfile.mobileNumber);
-        editor.putString(SharedPrefs.USER_ID,userProfile.userId);
+        editor.putString(SharedPrefs.USER_ID, userProfile.userId);
+        editor.putString(SharedPrefs.USER_OTP, userProfile.otp);
         editor.putBoolean(SharedPrefs.LOGGED_IN_STATUS, true);
         editor.commit();
     }
@@ -206,10 +274,34 @@ public class ParentSignupActivity extends AppCompatActivity implements View.OnCl
             return INVALID_NUMBER;
         } else if(!useremail.contains("@"))
             return INVALID_EMAIL;
-        else if(username.length()==0)
-            return INVALID_NAME;
+//        else if(username.length()==0)
+//            return INVALID_NAME;
         else {
             return VALIDATION_SUCCESS;
         }
+    }
+
+    public void receivedSms(String message) {
+        dialogMessage = message;
+//        showOtpDialog();
+
+        UserProfile profile = new Select().from(UserProfile.class).where("Otp = ? ", message).executeSingle();
+
+        if(profile!=null && profile.otp.equals(message)) {
+            otpEt = (EditText) otpDialog.findViewById(R.id.otp_text);
+            otpEt.setText(message);
+//            Button okBtn = (Button) otpDialog.findViewById(R.id.dialogButtonOK);
+//            okBtn.setVisibility(View.VISIBLE);
+//            okBtn.setText("PROCEED");
+            TextView messageTv = (TextView) otpDialog.findViewById(R.id.otp_message);
+            messageTv.setText("Successfully verified\n your contact number. Click on proceed to continue ");
+        }
+        else
+        {
+            Button okBtn = (Button) otpDialog.findViewById(R.id.dialogButtonOK);
+            okBtn.setVisibility(View.VISIBLE);
+            okBtn.setText("OTP Mismatch");
+        }
+
     }
 }

@@ -27,6 +27,7 @@ import com.whizkidzmedia.tiddlerjoy.DataModels.ChildProfile;
 import com.whizkidzmedia.tiddlerjoy.DataModels.UserProfile;
 import com.whizkidzmedia.tiddlerjoy.Networking.AddChildProfileAsyncTask;
 import com.whizkidzmedia.tiddlerjoy.R;
+import com.whizkidzmedia.tiddlerjoy.Utilities.AppConstants;
 import com.whizkidzmedia.tiddlerjoy.Utilities.CameraHandler;
 import com.whizkidzmedia.tiddlerjoy.Utilities.ConnectionDetector;
 import com.whizkidzmedia.tiddlerjoy.Utilities.DialogBox;
@@ -71,6 +72,8 @@ public class AddChildProfileActivity extends Activity implements DatePickerDialo
     private void initUI() {
 
 
+        TextView addChildtext = (TextView)findViewById(R.id.add_child_text);
+        addChildtext.setTypeface(AppConstants.getAppTypeface(this));
         dateOfBirthTextView = (TextView)findViewById(R.id.age_input_tview);
         childNameEt = (EditText)findViewById(R.id.name_input_edittext);
         childImageView = (RoundedImageView)findViewById(R.id.child_image);
@@ -84,7 +87,7 @@ public class AddChildProfileActivity extends Activity implements DatePickerDialo
         calendarImgView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(AddChildProfileActivity.this, "yo", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AddChildProfileActivity.this, "yo", Toast.LENGTH_SHORT).show();
                 showCalendarDialog();
             }
         });
@@ -222,11 +225,12 @@ public class AddChildProfileActivity extends Activity implements DatePickerDialo
                     loadingView.stop();
                     loadingView.setVisibility(View.GONE);
                     if(childProfile.childID!=null){
+                        new DialogBox(AddChildProfileActivity.this,"Successfully added child profile: "+childProfile.childName);
                         addToDatabase(childProfile);
                     }
                     else
                     {
-                        new DialogBox(AddChildProfileActivity.this,"Try Again !!!");
+                        new DialogBox(AddChildProfileActivity.this,childProfile.childName);
                     }
                 }
             }.execute();

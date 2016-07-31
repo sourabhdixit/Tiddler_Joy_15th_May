@@ -12,8 +12,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.activeandroid.query.Select;
+import com.whizkidzmedia.tiddlerjoy.DataModels.EarlyLearningDomainData;
 import com.whizkidzmedia.tiddlerjoy.R;
-import com.whizkidzmedia.tiddlerjoy.Utilities.AppConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,40 +31,22 @@ public class ListDomainPagerFragment extends Fragment {
     public static final String CREATIVITY_VIEW_ID = "3";
     public static String CURRENT_SELECTED_BOGIE="1";
     public static String domainString="";
-    public int iteration;
+    public int iteration, end;
     public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
     public static List<String> data;
     public TextView[] domainTextViews;
     public ProgressBar[] progressBars;
     public int[] progressBarColors;
     public ImageView leftScroller,rightScroller;
-    public static final ListDomainPagerFragment newInstance(String selectedDomainIndex,int start, int end)
+    TextView messageTextView;
+    public static final ListDomainPagerFragment newInstance(String domainString,int start, int end)
     {
+        String selectedDomainIndex=domainString;
         ListDomainPagerFragment f = new ListDomainPagerFragment();
-        if(selectedDomainIndex.equals("1")) {
-            data = AppConstants.getMyselfTopics();
-            domainString = "ABOUT MYSELF";
-        }
-        else if(selectedDomainIndex.equals("2")) {
-            data = AppConstants.getMathsTopics();
-            domainString = "EARLY MATHS";
-        }
-        else if(selectedDomainIndex.equals("3")) {
-            data = AppConstants.getCreativityTopics();
-            domainString = "CREATIVITY";
-        }
-        else if(selectedDomainIndex.equals("4")) {
-            data = AppConstants.getWorldAroundMeTopics();
-            domainString = "BEAUTIFUL WORLD";
-        }
-        else {
-            data = AppConstants.getCommunicationTopics();
-            domainString = "COMMUNICATION";
-        }
-
         Bundle bdl = new Bundle();
         bdl.putString(EXTRA_MESSAGE, selectedDomainIndex);
         bdl.putInt("Iteration", start);
+        bdl.putInt("Iteration_1",end);
         f.setArguments(bdl);
         return f;
     }
@@ -79,15 +62,62 @@ public class ListDomainPagerFragment extends Fragment {
                              Bundle savedInstanceState) {
         String message = getArguments().getString(EXTRA_MESSAGE);
         iteration = getArguments().getInt("Iteration");
+        end = getArguments().getInt("Iteration_1");
         View v = inflater.inflate(R.layout.list_domain_pager_fragment, container, false);
-        TextView messageTextView = (TextView)v.findViewById(R.id.textView);
-        messageTextView.setText(domainString);
+        messageTextView = (TextView)v.findViewById(R.id.textView);
         leftScroller = (ImageView)v.findViewById(R.id.viewpager_left);
         rightScroller = (ImageView)v.findViewById(R.id.viewpager_right);
+        initData(message,iteration,end);
         initDomainTextViews(v);
         initViewPagerScrollArrows();
 
         return v;
+    }
+
+    private void initData(String selectedDomainIndex,int start, int end) {
+
+        data = new ArrayList<>();
+        if(selectedDomainIndex.equals("1")) {
+            ArrayList<EarlyLearningDomainData> eldaData = (ArrayList)new Select().all().from(EarlyLearningDomainData.class).where(" LearningAreaName = ?","All About Me").execute();
+            for(int i=start;i<end;i++)
+            {
+                data.add(eldaData.get(i).eldaName);
+            }
+            domainString = "ABOUT MYSELF";
+        }
+        else if(selectedDomainIndex.equals("2")) {
+            ArrayList<EarlyLearningDomainData> eldaData = (ArrayList)new Select().all().from(EarlyLearningDomainData.class).where(" LearningAreaName = ?","Early Maths").execute();
+            for(int i=start;i<end;i++)
+            {
+                data.add(eldaData.get(i).eldaName);
+            }
+            domainString = "EARLY MATHS";
+        }
+        else if(selectedDomainIndex.equals("3")) {
+            ArrayList<EarlyLearningDomainData> eldaData = (ArrayList)new Select().all().from(EarlyLearningDomainData.class).where(" LearningAreaName = ?","Creativity").execute();
+            for(int i=start;i<end;i++)
+            {
+                data.add(eldaData.get(i).eldaName);
+            }
+            domainString = "CREATIVITY";
+        }
+        else if(selectedDomainIndex.equals("4")) {
+            ArrayList<EarlyLearningDomainData> eldaData = (ArrayList)new Select().all().from(EarlyLearningDomainData.class).where(" LearningAreaName = ?","Beautiful World").execute();
+            for(int i=start;i<end;i++)
+            {
+                data.add(eldaData.get(i).eldaName);
+            }
+            domainString = "BEAUTIFUL WORLD";
+        }
+        else {
+            ArrayList<EarlyLearningDomainData> eldaData = (ArrayList)new Select().all().from(EarlyLearningDomainData.class).where(" LearningAreaName = ?","Communication").execute();
+            for(int i=start;i<end;i++)
+            {
+                data.add(eldaData.get(i).eldaName);
+            }
+            domainString = "COMMUNICATION";
+        }
+
     }
 
     private void initViewPagerScrollArrows() {
@@ -128,42 +158,46 @@ public class ListDomainPagerFragment extends Fragment {
         progressBars = new ProgressBar[]{(ProgressBar)view.findViewById(R.id.progress_first),(ProgressBar)view.findViewById(R.id.progress_second),(ProgressBar)view.findViewById(R.id.progress_third),
                 (ProgressBar)view.findViewById(R.id.progress_fourth)};
         progressBarColors = new int[]{Color.GREEN,Color.RED,Color.YELLOW,Color.parseColor("#F185F3")};
-        int beg= iteration*4,textViewCount=0,end=0;
+        int beg= 0,textViewCount=0,end=this.end;
         for(textViewCount=0;textViewCount<4;beg++,textViewCount++) {
             if(beg<data.size()) {
+                EarlyLearningDomainData eldaData = new Select().all().from(EarlyLearningDomainData.class).where(" Name = ?", data.get(beg)).executeSingle();
                 end++;
                 domainTextViews[textViewCount].setVisibility(View.VISIBLE);
-                domainTextViews[textViewCount].setText(data.get(beg));
+                domainTextViews[textViewCount].setText(eldaData.eldaName);
                 domainTextViews[textViewCount].setTextColor(Color.BLACK);
                 domainTextViews[textViewCount].setEllipsize(TextUtils.TruncateAt.END);
                 domainTextViews[textViewCount].setMaxLines(1);
                 domainTextViews[textViewCount].setTextSize(12);
+                initProgressBars(view, textViewCount, true, 0);
+                progressBars[textViewCount].setProgress(eldaData.currentVideoCount);
+                progressBars[textViewCount].setMax(eldaData.totalVideoCount);
+                messageTextView.setText(domainString);
                 //domainTextViews[textViewCount].setTextColor(progressBarColors[textViewCount]);
             }
             else
             {
                 domainTextViews[textViewCount].setVisibility(View.GONE);
+                initProgressBars(view,textViewCount, false,0);
             }
         }
-        initProgressBars(view,end);
+
 
     }
 
-    private void initProgressBars(View view,int textViewCount) {
+    private void initProgressBars(View view, int index, boolean isVisible, int progress) {
 
-        for(int i = 0; i<progressBars.length;i++)
-        {
-            if(i<textViewCount) {
-                progressBars[i].setVisibility(View.VISIBLE);
-                progressBars[i].setProgress(i*10+20);
-                if(i!=3)
-                progressBars[i].getProgressDrawable().setColorFilter(progressBarColors[i], PorterDuff.Mode.MULTIPLY);
+            if(isVisible) {
+                progressBars[index].setVisibility(View.VISIBLE);
+                progressBars[index].setProgress(index*10+20);
+                if(index!=3)
+                progressBars[index].getProgressDrawable().setColorFilter(progressBarColors[index], PorterDuff.Mode.MULTIPLY);
                 else
-                    progressBars[i].getProgressDrawable().setColorFilter(progressBarColors[i], PorterDuff.Mode.LIGHTEN);
+                    progressBars[index].getProgressDrawable().setColorFilter(progressBarColors[index], PorterDuff.Mode.LIGHTEN);
             }
             else
-                progressBars[i].setVisibility(View.GONE);
-        }
+                progressBars[index].setVisibility(View.GONE);
+
 
     }
 }
